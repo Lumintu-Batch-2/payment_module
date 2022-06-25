@@ -160,4 +160,42 @@ class Invoices {
         }
 
     }
+
+    public function update_status() {
+        try {
+            $stmt = $this->db_conn->prepare(
+                'UPDATE invoices SET status = :status WHERE order_id = :order_id'
+            );
+
+            $stmt->bindParam(":status", $this->status);
+            $stmt->bindParam(":order_id", $this->order_id);
+
+            if($stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function get_invoice() {
+        try {
+            $stmt = $this->db_conn->prepare(
+                'SELECT * FROM invoices WHERE order_id = :order_id'
+            );
+
+            $stmt->bindParam(":order_id", $this->order_id);
+
+            if($stmt->execute()) {
+                $invoice = $stmt->fetch(PDO::FETCH_ASSOC);
+                return $invoice;
+            } else {
+                return null;
+            }
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
 }

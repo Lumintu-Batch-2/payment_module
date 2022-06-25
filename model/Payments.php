@@ -123,9 +123,28 @@ class Payments {
             if($stmt->execute()) {
                 return true;
             } else {
-                return null;
+                return false;
             }
 
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function get_total_amount() {
+        try {
+            $stmt = $this->db_conn->prepare(
+                'SELECT SUM(amount) as amount FROM payments WHERE payments.order_id IN (SELECT invoices.order_id FROM invoices WHERE invoices.order_id = :order_id)'
+            );
+
+            $stmt->bindParam(":order_id", $this->order_id);
+
+            if($stmt->execute()) {
+                $amount = $stmt->fetch(PDO::FETCH_ASSOC);
+                return $amount;
+            } else {
+                return null;
+            }
         } catch (PDOException $e) {
             return $e->getMessage();
         }

@@ -68,4 +68,47 @@ class Items {
             return $e->getMessage();
         }
     }
+
+    public function get_items_user($user_id) {
+
+        try {
+
+            $stmt = $this->db_conn->prepare(
+                "SELECT * FROM items WHERE items.item_id IN (SELECT invoices.item_id FROM invoices WHERE invoices.user_id = :uid AND (invoices.status = 'paid' OR invoices.status = 'pending') )"
+            );
+            
+            $stmt->bindParam(":uid", $user_id);
+
+            if($stmt->execute()) {
+                $item = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                return $item;
+            } else {
+                return false;
+            }
+
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function get_not_taken_items($user_id) {
+        try {
+
+            $stmt = $this->db_conn->prepare(
+                "SELECT * FROM items WHERE items.item_id NOT IN (SELECT invoices.item_id FROM invoices WHERE invoices.user_id = :uid AND (invoices.status = 'paid' OR invoices.status = 'pending') )"
+            );
+            
+            $stmt->bindParam(":uid", $user_id);
+
+            if($stmt->execute()) {
+                $item = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                return $item;
+            } else {
+                return false;
+            }
+
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
 }

@@ -4,6 +4,7 @@
 require_once dirname(__FILE__) . '/vendor/midtrans/midtrans-php/Midtrans.php';
 
 
+
 // $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 // $dotenv->load();
 
@@ -31,6 +32,15 @@ $objPay->set_status($transaction_status);
 $check = $objPay->payment_check();
 
 (!$check) ? $objPay->create_payment() : $objPay->update_payment_status();
+$payment = $objPay->get_total_amount();
+$total_payment_amount = $payment['amount'];
+
+require dirname(__FILE__) . '/model/Invoices.php';
+$objInv = new Invoices;
+$objInv->set_order_id($order_id);
+$invoice = $objInv->get_invoice();
+$invoice_amount = $invoice['amount'];
+
 
 if ($transaction_status == 'capture') {
     // For credit card transaction, we need to check whether transaction is challenge by FDS or not
@@ -44,20 +54,40 @@ if ($transaction_status == 'capture') {
             $message = "Transaction order_id: " . $order_id . " successfully captured using " . $type;
         }
     }
+    if($total_payment_amount == $invoice_amount) {
+        $objInv->set_status('paid');
+        $objInv->update_status();
+    }
 } elseif ($transaction_status == 'settlement') {
     // TODO set payment status in merchant's database to 'Settlement'
+    if($total_payment_amount == $invoice_amount) {
+        $objInv->set_status('paid');
+        $objInv->update_status();
+    }
     $message = "Transaction order_id: " . $order_id . " successfully transfered using " . $type . " Pada tanggal " . $tanggal . "Dibayar dengan uang ". $matauang;
 } elseif ($transaction_status == 'pending') {
     // TODO set payment status in merchant's database to 'Pending'
     $message = "Waiting customer to finish transaction order_id: " . $order_id . " using " . $type;
 } elseif ($transaction_status == 'deny') {
     // TODO set payment status in merchant's database to 'Denied'
+    if($total_payment_amount < $invoice_amount) {
+        $objInv->set_status('unpaid');
+        $objInv->update_status();
+    }
     $message = "Payment using " . $type . " for transaction order_id: " . $order_id . " is denied.";
 } elseif ($transaction_status == 'expire') {
     // TODO set payment status in merchant's database to 'expire'
+    if($total_payment_amount < $invoice_amount) {
+        $objInv->set_status('unpaid');
+        $objInv->update_status();
+    }
     $message = "Payment using " . $type . " for transaction order_id: " . $order_id . " is expired.";
 } elseif ($transaction_status == 'cancel') {
     // TODO set payment status in merchant's database to 'Denied'
+    if($total_payment_amount < $invoice_amount) {
+        $objInv->set_status('unpaid');
+        $objInv->update_status();
+    }
     $message = "Payment using " . $type . " for transaction order_id: " . $order_id . " is canceled.";
 }
 
