@@ -4,17 +4,25 @@
  * Example: Psysh (debugging library similar to pry in Ruby)
  */
 
+// PHP Error Display
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 $item_data = $_POST['item_detail'];
 $customer_data = $_POST['customer_detail'];
 require_once dirname(__FILE__) . '/vendor/autoload.php';
-// require_once("../../autoload.php");
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+$dotenv->required('MIDTRANS_SERVER_KEY')->notEmpty();
 
 require_once dirname(__FILE__) . '/vendor/midtrans/midtrans-php/Midtrans.php';
 require_once dirname(__FILE__) . '/vendor/midtrans/midtrans-php/tests/MT_Tests.php';
 require_once dirname(__FILE__) . '/vendor/midtrans/midtrans-php/tests/utility/MtFixture.php';
 
 // Set your Merchant Server Key
-\Midtrans\Config::$serverKey = 'SB-Mid-server-WLKYaqPo6P-yHb7yTbVmWuJq';
+\Midtrans\Config::$serverKey = $_ENV['MIDTRANS_SERVER_KEY'];
 // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
 \Midtrans\Config::$isProduction = false;
 // Set sanitization on (default)
@@ -23,10 +31,8 @@ require_once dirname(__FILE__) . '/vendor/midtrans/midtrans-php/tests/utility/Mt
 \Midtrans\Config::$is3ds = true;
 
 
-// require_once('../model/Invoices.php');
 require dirname(__FILE__) . '/model/Invoices.php';
-// print_r(dirname(__DIR__) . '/model/Invoices.php');
-// die;
+
 $objInv = new \Invoices;
 $objInv->set_first_name($customer_data['first_name']);
 $objInv->set_last_name($customer_data['last_name']);

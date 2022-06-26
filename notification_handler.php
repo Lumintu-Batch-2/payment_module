@@ -1,15 +1,19 @@
 <?php
 
-// require_once 'vendor/autoload.php';
+require_once 'vendor/autoload.php';
 require_once dirname(__FILE__) . '/vendor/midtrans/midtrans-php/Midtrans.php';
 
+// PHP Error Display
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-
-// $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-// $dotenv->load();
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+$dotenv->required('MIDTRANS_SERVER_KEY')->notEmpty();
 
 \Midtrans\Config::$isProduction = false;
-\Midtrans\Config::$serverKey = "SB-Mid-server-WLKYaqPo6P-yHb7yTbVmWuJq";
+\Midtrans\Config::$serverKey = $_ENV['MIDTRANS_SERVER_KEY'];
 
 $notif = new \Midtrans\Notification();
 
