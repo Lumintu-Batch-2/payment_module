@@ -23,7 +23,7 @@ if (isset($_POST['login'])) {
         $_SESSION['expiry'] = $expiry;
         setcookie('X-LUMINTU-REFRESHTOKEN', $access_token, strtotime($expiry));
 
-        header('location: ./view/index.php');
+        header('location: ./view/welcome_page.php');
     }
 }
 

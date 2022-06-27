@@ -1,14 +1,33 @@
 <?php
-require_once "../templates/header.php";
 
-$url = "http://192.168.18.99/payment_module/api/items.php";
-// $urlf = 'https://lessons.lumintulogic.com/api/modul/read_modul_rows.php';
-$datajs = file_get_contents($url);
-$json = json_decode($datajs, TRUE);
-// var_dump($json);
-$indata = $json['data'];
+    session_start();
 
-// var_dump($indata);
+    require_once "../templates/header.php";
+    require_once('../model/Items.php');
+    require_once('../controllers/get_request.php');
+
+    $objItem = new Items();
+    $items = $objItem->get_all_items();
+
+    $user_id = $_SESSION['user_data']->{'user'}->{'user_id'}; 
+    $user_first_name = $_SESSION['user_data']->{'user'}->{'user_first_name'}; 
+    $user_last_name = $_SESSION['user_data']->{'user'}->{'user_last_name'}; 
+    $user_email = $_SESSION['user_data']->{'user'}->{'user_email'}; 
+    $user_phone = $_SESSION['user_data']->{'user'}->{'user_phone'};
+
+    echo "<input type='hidden' id='userId' value='" . $user_id . "'>";
+    echo "<input type='hidden' id='userFirstName' value='" . $user_first_name . "'>";
+    echo "<input type='hidden' id='userLastName' value='" . $user_last_name . "'>";
+    echo "<input type='hidden' id='userEmail' value='" . $user_email . "'>";
+    echo "<input type='hidden' id='userPhone' value='" . $user_phone . "'>";
+
+    // var_dump($indata);
+    // get all item
+    $url1 = "http://localhost/payment_module/api/items.php?id=" . $user_id;
+    $datajs = file_get_contents($url1);
+    $json = json_decode($datajs, TRUE);
+    // var_dump($json);
+    $data_item = $json['data'];
 
 ?>
 <body>
@@ -53,38 +72,46 @@ $indata = $json['data'];
             Kelas yang telah kamu ambil
         </h3>
     </div>
-    <div class="text-center">
-        <a href="#">
-            <img 
-            class="h-60 w-full object-center p-4"
-            src="../assets/ilustrasi/gambar5.svg"
-            alt="error">
-        </a>
-    </div>
-    <div class="text-center w-full px-4 mb-8 p-4">
-        <h3 class="font-medium text-[#263238] sm:text-xl">
-            Oops kamu belum memiliki kelas
-        </h3>
-    </div>
-    <!-- <div class="flex flex-wrap -m-8 p-8">
-        <div class="p-4 md:w-1/3" id="bantu1">
-            <div class="h-full rounded-xl bg-white overflow-hidden drop-shadow-xl">
-                <a href="#">
-                    <img 
-                    class="lg:h-48 md:h-36 w-full object-center scale-100 transition-all duration-400 hover:scale-90"
-                    src="../assets/ilustrasi/gambar1.svg"
-                    alt="blog">
-                </a>
-                <div class="p-6">
-                    <h1 class="title-font text-center text-2xl font-bold text-[#263238] mb-3">Gard IT</h1>
-                    <p class="leading-relaxed mb-3">Platform Pembelajaran untuk Sarjana & Fresh Graduate. Kursus Full Stack Developer.</p>
+    <div>
+    <?php if(empty($data_item['items_user'])) { ?>
+            <div class="flex flex-col mx-auto w-full">
+                <div class="text-center">
+                    <a href="#">
+                        <img 
+                        class="h-60 w-full object-center p-4"
+                        src="../assets/ilustrasi/gambar5.svg"
+                        alt="error">
+                    </a>
                 </div>
-                <div class="p-6 text-center">
-                    <button type="button" class="text-white bg-[#C27D2B] rounded-full 
-                    text-sm px-5 py-2 text-center md:mr-3 sm:mr-0 mx-auto">Ayo gabung sekarang</button>
+                <div class="text-center w-full px-4 mb-8 p-4">
+                    <h3 class="font-medium text-[#263238] sm:text-xl">
+                        Oops kamu belum memiliki kelas
+                    </h3>
                 </div>
             </div>
-        </div> -->
+        <?php } else {?>
+            <div class=" mx-auto lg:max-w-7xl mt-3 ">
+                <div class="max-w-7xl mx-auto px-5 mb-3">
+                    <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
+                        <?php foreach ($data_item['items_user'] as $pack) : ?>
+                            <div class="max-w-xl p-4 bg-white rounded-lg border border-gray-200 shadow-xl">                    
+                                <img class="lg:h-48 md:h-36 w-full object-center scale-100 transition-all duration-400 hover:scale-90" src="../assets/ilustrasi/gambar<?=$pack['item_id'];?>.svg" alt="">
+                                <div class="p-5" >
+                                    <a href="#">
+                                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 text-center"><?= $pack["name"]; ?></h5>
+                                    </a>
+                                    <p class="mb-3 font-normal text-gray-700 mb-14"><?= $pack["description"]; ?></p>
+                                    <div class="p-6 text-center">
+                                        <a href="#" class="text-white bg-[#C27D2B] rounded-full 
+                                        text-sm px-5 py-2 text-center md:mr-3 sm:mr-0 mx-auto">Ayo belajar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>    
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
     </div>
 </div>
 <!-- end kelas yang telah diambil -->
@@ -92,23 +119,21 @@ $indata = $json['data'];
 <!-- rekomendasi kelas -->
 <div class="bg-white p-2 mb-16">
     <div class="text-center w-full p-4 mb-8">
-            <h3 class="font-semibold text-[#263238] sm:text-3xl">
-                Ayo tentukan kelas kamu sekarang
-            </h3>
-            <p class="font-medium text-[#263238] text-lg">
-                Pilih kelas sesuai dengan minat kamu
-            </p>
+        <h3 class="font-semibold text-[#263238] sm:text-3xl">
+            Ayo tentukan kelas kamu sekarang
+        </h3>
+        <p class="font-medium text-[#263238] text-lg">
+            Pilih kelas sesuai dengan minat kamu
+        </p>
     </div>
     <!-- component card -->
     
     <div class=" mx-auto lg:max-w-7xl mt-3 ">
         <div class="max-w-7xl mx-auto px-5 mb-3">
             <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
-            <?php foreach ($indata as $pack) : ?>
-                <div class="max-w-xl p-4 bg-white rounded-lg border border-gray-200 shadow-xl">
-                    
-                    <img class="lg:h-48 md:h-36 w-full object-center scale-100 transition-all duration-400 hover:scale-90" src="../assets/ilustrasi/gambar<?=$pack['item_id'];?>.svg" alt="">
-                    
+                <?php foreach ($data_item['not_taken'] as $pack) : ?>
+                    <div class="max-w-xl p-4 bg-white rounded-lg border border-gray-200 shadow-xl">
+                        <img class="lg:h-48 md:h-36 w-full object-center scale-100 transition-all duration-400 hover:scale-90" src="../assets/ilustrasi/gambar<?=$pack['item_id'];?>.svg" alt="">
                         <div class="p-5" >
                             
                             <a href="#">
@@ -117,11 +142,10 @@ $indata = $json['data'];
                             <p class="mb-3 font-normal text-gray-700 mb-14"><?= $pack["description"]; ?></p>
                             <div class="p-6 text-center">
                                 <button type="button" data-modal-toggle="default-modal" class="text-white bg-[#C27D2B] rounded-full 
-                                text-sm px-5 py-2 text-center md:mr-3 sm:mr-0 mx-auto">Ayo gabung sekarang</button>
+                                text-sm px-5 py-2 text-center md:mr-3 sm:mr-0 mx-auto" data-name="<?= $pack["name"]; ?>" data-price="<?= $pack["price"]; ?>" data-desc="<?= $pack["description"]; ?>" id="modal<?= $pack["item_id"]; ?>" onclick="openModal(<?= $pack['item_id']; ?>)">Ayo gabung sekarang</button>
                             </div>
-                        
                         </div>
-                </div>
+                    </div>
                 <?php endforeach; ?>
             </div>
         </div>
@@ -130,6 +154,16 @@ $indata = $json['data'];
     <?php include "../templates/modal.php"; ?>
 </div>
 <!-- end rekomendasi kelas -->
+
+<!-- Loading animation -->
+<div id="loader" class="loading-container hidden">
+    <div class="lds-ring">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
 
 
 <!-- footer -->
@@ -198,9 +232,89 @@ $indata = $json['data'];
 </footer>
 <!-- end footer -->
 
-</body
+</body>
 
 
 
 
 <?php require_once "../templates/footer.php" ?>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+<script>
+
+    let numberWithDot = (x) => { return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."); }
+
+    function openModal(id) {
+
+        let itemId = id;
+        let itemName = $('#modal' + id).data('name');
+        let itemPrice = $('#modal' + id).data('price');
+        let itemDesc = $('#modal' + id).data('desc');
+
+        $('#itemTitle').html(itemName);
+        $('#itemDesc').html(itemDesc);
+        $('#itemId').html(itemId);
+        $('#priceValue').html('Rp ' + numberWithDot(itemPrice));
+        $('#itemPrice').html(itemPrice);
+        $('#benefitClass').html('Akses kelas ' + itemName);
+    }
+
+    let createOrder = () => {
+        
+        const URL_PAYMENT = "https://app.sandbox.midtrans.com/snap/v2/vtweb/";
+
+        // Item Data
+        let itemId = $('#itemId').html();
+        let itemName = $('#itemTitle').html();
+        let itemPrice = $('#itemPrice').html();
+        let itemQty = 1;
+
+
+        let itemData = {
+            "id": itemId,
+            "price": itemPrice,
+            "name": itemName,
+            "quantity": 1
+        }
+
+        // User Data
+        let userId = $('#userId').val();
+        let userFirstName = $('#userFirstName').val();
+        let userLastName = $('#userLastName').val();
+        let userEmail = $('#userEmail').val();
+        let userPhone = $('#userPhone').val();
+
+        let userData = {
+            "user_id": userId,
+            "first_name": userFirstName,
+            "last_name": userLastName,
+            "email": userEmail,
+            "phone": userPhone
+        }
+
+
+        $.ajax({
+            url: '../create_order.php',
+            type: 'post',
+            data: {
+                "item_detail": itemData,
+                "customer_detail": userData
+            },
+            xhr: function() {
+                const xhr = new window.XMLHttpRequest();
+                
+                xhr.upload.addEventListener('progress', (event) => {
+                    $('#loader').removeClass('hidden');
+                }, false)
+                return xhr;
+            },
+            success: function(res) {
+                $('#loader').removeClass('hidden');
+                alert('Pesanan behasil dibuat');
+                location.replace(URL_PAYMENT + res);
+            }
+        })
+    }
+    
+
+</script>
