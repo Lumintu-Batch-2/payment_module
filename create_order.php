@@ -16,6 +16,7 @@ require_once dirname(__FILE__) . '/vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 $dotenv->required('MIDTRANS_SERVER_KEY')->notEmpty();
+$dotenv->required('IS_PRODUCTION')->notEmpty();
 
 require_once dirname(__FILE__) . '/vendor/midtrans/midtrans-php/Midtrans.php';
 require_once dirname(__FILE__) . '/vendor/midtrans/midtrans-php/tests/MT_Tests.php';
@@ -24,7 +25,7 @@ require_once dirname(__FILE__) . '/vendor/midtrans/midtrans-php/tests/utility/Mt
 // Set your Merchant Server Key
 \Midtrans\Config::$serverKey = $_ENV['MIDTRANS_SERVER_KEY'];
 // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
-\Midtrans\Config::$isProduction = false;
+\Midtrans\Config::$isProduction = filter_var($_ENV['IS_PRODUCTION'], FILTER_VALIDATE_BOOLEAN);
 // Set sanitization on (default)
 \Midtrans\Config::$isSanitized = true;
 // Set 3DS transaction for credit card to true
@@ -63,8 +64,7 @@ $params = array(
     'customer_details' => array(
         'first_name' => $customer_data['first_name'],
         'last_name' => $customer_data['last_name'],
-        // 'email' => $customer_data['email'],
-         'email' => "imuttaqien17@gmail.com",
+        'email' => $customer_data['email'],
         'phone' => $customer_data['phone'],
     ),
 );
