@@ -1,6 +1,8 @@
 <?php
 require_once "../templates/header.php";
 require_once "../controllers/format_price.php";
+require_once('../controllers/get_request.php');
+
 
 // PHP Error Display
 ini_set('display_errors', 1);
@@ -12,7 +14,7 @@ session_start();
 $user_id = $_SESSION['user_data']->{'user'}->{'user_id'}; 
 
 $url = "http://localhost/payment_module/api/invoices.php?id=" . $user_id;
-$datajs = file_get_contents($url);
+$datajs = http_request($url);
 $json = json_decode($datajs, TRUE);
 // var_dump($json);
 $indata = $json['data'];
@@ -65,7 +67,7 @@ $indata = $json['data'];
                                 Anda tidak memiliki invoice
                             </h3>
                         </div>
-                    </div>Pembelajaran
+                    </div>
                 <?php } else  {?>
                     <?php for($i = 0; $i < count($indata); $i++) : ?>
                         <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl border border-md">
@@ -98,7 +100,7 @@ $indata = $json['data'];
                                 <div class="flex justify-between mt-3 item-center">
                                     <h1 class="text-sm font-bold text-gray-700 md:text-xl"><?= 'Rp ' . format_price($indata[$i]['amount'])?></h1>
                                     <?php if($indata[$i]['status'] == 'pending') : ?>
-                                        <a href="https://app.sandbox.midtrans.com/snap/v2/vtweb/<?=$indata[$i]['transaction_id']?>" class="px-2 py-1 text-xs font-bold text-white uppercase transition-colors duration-200 transform bg-gray-800 rounded">Bayar sekarang</a>
+                                        <a href="https://app.midtrans.com/snap/v2/vtweb/<?=$indata[$i]['transaction_id']?>" class="px-2 py-1 text-xs font-bold text-white uppercase transition-colors duration-200 transform bg-gray-800 rounded">Bayar sekarang</a>
                                     <?php endif ?>
                                 </div>
                                 </div>

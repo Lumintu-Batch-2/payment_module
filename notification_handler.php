@@ -11,8 +11,9 @@ error_reporting(E_ALL);
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 $dotenv->required('MIDTRANS_SERVER_KEY')->notEmpty();
+$dotenv->required('IS_PRODUCTION')->notEmpty();
 
-\Midtrans\Config::$isProduction = false;
+\Midtrans\Config::$isProduction = filter_var($_ENV['IS_PRODUCTION'], FILTER_VALIDATE_BOOLEAN);
 \Midtrans\Config::$serverKey = $_ENV['MIDTRANS_SERVER_KEY'];
 
 $notif = new \Midtrans\Notification();
@@ -74,24 +75,18 @@ if ($transaction_status == 'capture') {
     $message = "Waiting customer to finish transaction order_id: " . $order_id . " using " . $type;
 } elseif ($transaction_status == 'deny') {
     // TODO set payment status in merchant's database to 'Denied'
-    if($total_payment_amount < $invoice_amount) {
-        $objInv->set_status('unpaid');
-        $objInv->update_status();
-    }
+    $objInv->set_status('unpaid');
+    $objInv->update_status();
     $message = "Payment using " . $type . " for transaction order_id: " . $order_id . " is denied.";
 } elseif ($transaction_status == 'expire') {
     // TODO set payment status in merchant's database to 'expire'
-    if($total_payment_amount < $invoice_amount) {
-        $objInv->set_status('unpaid');
-        $objInv->update_status();
-    }
+    $objInv->set_status('unpaid');
+    $objInv->update_status();
     $message = "Payment using " . $type . " for transaction order_id: " . $order_id . " is expired.";
 } elseif ($transaction_status == 'cancel') {
     // TODO set payment status in merchant's database to 'Denied'
-    if($total_payment_amount < $invoice_amount) {
-        $objInv->set_status('unpaid');
-        $objInv->update_status();
-    }
+    $objInv->set_status('unpaid');
+    $objInv->update_status();
     $message = "Payment using " . $type . " for transaction order_id: " . $order_id . " is canceled.";
 }
 

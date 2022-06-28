@@ -6,6 +6,11 @@
     require_once('../model/Items.php');
     require_once('../controllers/get_request.php');
 
+    // PHP Error Display
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+
     $objItem = new Items();
     $items = $objItem->get_all_items();
 
@@ -24,7 +29,7 @@
     // var_dump($indata);
     // get all item
     $url1 = "http://localhost/payment_module/api/items.php?id=" . $user_id;
-    $datajs = file_get_contents($url1);
+    $datajs = http_request($url1);
     $json = json_decode($datajs, TRUE);
     // var_dump($json);
     $data_item = $json['data'];
@@ -309,9 +314,9 @@
                 return xhr;
             },
             success: function(res) {
-                $('#loader').removeClass('hidden');
-                alert('Pesanan behasil dibuat');
-                location.replace(URL_PAYMENT + res);
+                $('#loader').addClass('hidden');
+                alert('Pesanan behasil dibuat, silahkan cek halaman invoice untuk melakukan pembayaran');
+                // location.replace(URL_PAYMENT + res);
             }
         })
     }
