@@ -202,7 +202,7 @@ class Invoices {
     public function get_all_invoices() {
         try {
             $stmt = $this->db_conn->prepare(
-                'SELECT * FROM invoices'
+                'SELECT invoices.order_id, invoices.status, invoices.date_created, invoices.transaction_id, items.item_id, items.name, invoices.amount, items.description FROM `invoices` LEFT JOIN items ON items.item_id = invoices.item_id'
             );
             if($stmt->execute()) {
                 $invoices = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -218,7 +218,7 @@ class Invoices {
     public function get_invoices_user() {
         try {
             $stmt = $this->db_conn->prepare(
-                'SELECT * FROM invoices WHERE user_id = :user_id'
+                'SELECT invoices.order_id, invoices.status, invoices.date_created, invoices.transaction_id, items.item_id, items.name, invoices.amount, items.description FROM `invoices` LEFT JOIN items ON items.item_id = invoices.item_id WHERE invoices.user_id = :user_id'
             );
             $stmt->bindParam(":user_id", $this->user_id);
 

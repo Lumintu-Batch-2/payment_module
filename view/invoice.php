@@ -1,12 +1,21 @@
 <?php
 require_once "../templates/header.php";
+require_once "../controllers/format_price.php";
 
-// $url = "http://192.168.18.114/payment_module/api/items.php";
-// // $urlf = 'https://lessons.lumintulogic.com/api/modul/read_modul_rows.php';
-// $datajs = file_get_contents($url);
-// $json = json_decode($datajs, TRUE);
-// // var_dump($json);
-// $indata = $json['data'];
+// PHP Error Display
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+session_start();
+
+$user_id = $_SESSION['user_data']->{'user'}->{'user_id'}; 
+
+$url = "http://localhost/payment_module/api/invoices.php?id=" . $user_id;
+$datajs = file_get_contents($url);
+$json = json_decode($datajs, TRUE);
+// var_dump($json);
+$indata = $json['data'];
 
 
 ?>
@@ -43,88 +52,60 @@ require_once "../templates/header.php";
     <div class=" mx-auto lg:max-w-7xl mt-3">
         <div class="max-w-7xl mx-auto px-5 mb-3">
             <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-2 xl:gap-x-8">
-
-                <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl border border-md">
-                    <div class="md:flex">
-                        <div class="md:shrink-0">
-                        <img class="h-48 w-full object-cover md:h-full md:w-48" src="../assets/ilustrasi/course1.png" alt="GradIT logo">
+                <?php if(empty($indata)) { ?>
+                    <div class="flex flex-col mx-auto w-full col-span-2">
+                        <div class="text-center">
+                            <img 
+                            class="h-60 w-full object-center p-4"
+                            src="../assets/ilustrasi/gambar5.svg"
+                            alt="error">
                         </div>
-                        <div class="p-8">
-                        <h1 class="text-2xl font-bold text-gray-800">GradIT</h1>
-                        <p class="mt-2 text-slate-500">Getting a new business off the ground is a lot of hard work. Here are five ideas you can use to find your first customers.</p>
-                        <p class="mt-2 text-slate-600">Tanggal: <span>20 juni 2022</span></p>
-                        <p class="mt-2 text-slate-600">invoice: <span>12345678/INV/87654321</span></p>
-                        <p class="mt-2 text-sm text-gray-600">Status: <span class="bg-indigo-100 text-indigo-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">Tertunda</span></p>
-
-                        <div class="flex justify-between mt-3 item-center">
-                            <h1 class="text-sm font-bold text-gray-700 md:text-xl">Rp. 999.000</h1>
-                            <button class="px-2 py-1 text-xs font-bold text-white uppercase transition-colors duration-200 transform bg-gray-800 rounded">Bayar sekarang</button>
+                        <div class="text-center w-full px-4 mb-8 p-4">
+                            <h3 class="font-medium text-[#263238] sm:text-xl">
+                                Anda tidak memiliki invoice
+                            </h3>
                         </div>
+                    </div>Pembelajaran
+                <?php } else  {?>
+                    <?php for($i = 0; $i < count($indata); $i++) : ?>
+                        <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl border border-md">
+                            <div class="md:flex">
+                                <div class="md:shrink-0">
+                                <img class="h-48 w-full object-cover md:h-full md:w-48" src="../assets/ilustrasi/course<?=$indata[$i]['item_id']?>.png" alt="GradIT logo">
+                                </div>
+                                <div class="p-8">
+                                <h1 class="text-2xl font-bold text-gray-800"><?=$indata[$i]['name']?></h1>
+                                <p class="mt-2 text-slate-500"><?=$indata[$i]['description']?></p>
+                                <p class="mt-2 text-slate-600">Tanggal: <span><?=$indata[$i]['date_created']?></span></p>
+                                <p class="mt-2 text-slate-600">Invoice: <span><?=$indata[$i]['order_id']?></span></p>
+                                <p class="mt-2 text-sm text-gray-600">
+                                    Status: 
+                                    <?php switch($indata[$i]['status']) { 
+                                        case 'pending': 
+                                            echo '<span class="bg-indigo-100 text-indigo-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">Tertunda</span>';
+                                            break;
+                                        case 'paid':
+                                            echo '<span class="bg-green-100 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">Berhasil</span>';
+                                            break;
+                                        case 'unpaid':
+                                            echo '<span class="bg-red-100 text-red-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">Gagal</span>';
+                                            break;
+                                        default:
+                                            break;
+                                     } ?>
+                                </p>
+    
+                                <div class="flex justify-between mt-3 item-center">
+                                    <h1 class="text-sm font-bold text-gray-700 md:text-xl"><?= 'Rp ' . format_price($indata[$i]['amount'])?></h1>
+                                    <?php if($indata[$i]['status'] == 'pending') : ?>
+                                        <a href="https://app.sandbox.midtrans.com/snap/v2/vtweb/<?=$indata[$i]['transaction_id']?>" class="px-2 py-1 text-xs font-bold text-white uppercase transition-colors duration-200 transform bg-gray-800 rounded">Bayar sekarang</a>
+                                    <?php endif ?>
+                                </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl border border-md">
-                    <div class="md:flex">
-                        <div class="md:shrink-0">
-                        <img class="h-48 w-full object-cover md:h-full md:w-48" src="../assets/ilustrasi/course2.png" alt="Prokidz Logo">
-                        </div>
-                        <div class="p-8">
-                        <h1 class="text-2xl font-bold text-gray-800">ProKidz</h1>
-                        <p class="mt-2 text-slate-500">Getting a new business off the ground is a lot of hard work. Here are five ideas you can use to find your first customers.</p>
-                        <p class="mt-2 text-slate-600">Tanggal: <span>20 juni 2022</span></p>
-                        <p class="mt-2 text-slate-600">invoice: <span>12345678/INV/87654321</span></p>
-                        <p class="mt-2 text-sm text-gray-600">Status: <span class="bg-green-100 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">Berhasil</span></p>
-
-                        <div class="flex justify-between mt-3 item-center">
-                            <h1 class="text-sm font-bold text-gray-700 md:text-xl">Rp. 999.000</h1>
-                            <!-- <button class="px-2 py-1 text-xs font-bold text-white uppercase transition-colors duration-200 transform bg-gray-800 rounded">Bayar sekarang</button> -->
-                        </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl border border-md">
-                    <div class="md:flex">
-                        <div class="md:shrink-0">
-                        <img class="h-48 w-full object-cover md:h-full md:w-48" src="../assets/ilustrasi/course4.png" alt="codecation">
-                        </div>
-                        <div class="p-8">
-                        <h1 class="text-2xl font-bold text-gray-800">Codecationc</h1>
-                        <p class="mt-2 text-slate-500">Getting a new business off the ground is a lot of hard work. Here are five ideas you can use to find your first customers.</p>
-                        <p class="mt-2 text-slate-600">Tanggal: <span>20 juni 2022</span></p>
-                        <p class="mt-2 text-slate-600">invoice: <span>12345678/INV/87654321</span></p>
-                        <p class="mt-2 text-sm text-gray-600">Status: <span class="bg-red-100 text-red-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">Gagal</span></p>
-
-                        <div class="flex justify-between mt-3 item-center">
-                            <h1 class="text-sm font-bold text-gray-700 md:text-xl">Rp. 999.000</h1>
-                            <!-- <button class="px-2 py-1 text-xs font-bold text-white uppercase transition-colors duration-200 transform bg-gray-800 rounded">Bayar sekarang</button> -->
-                        </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl border border-md">
-                    <div class="md:flex">
-                        <div class="md:shrink-0">
-                        <img class="h-48 w-full object-cover md:h-full md:w-48" src="../assets/ilustrasi/course3.png" alt="incarrer">
-                        </div>
-                        <div class="p-8">
-                        <h1 class="text-2xl font-bold text-gray-800">Incarrer</h1>
-                        <p class="mt-2 text-slate-500">Getting a new business off the ground is a lot of hard work. Here are five ideas you can use to find your first customers.</p>
-                        <p class="mt-2 text-slate-600">Tanggal: <span>20 juni 2022</span></p>
-                        <p class="mt-2 text-slate-600">invoice: <span>12345678/INV/87654321</span></p>
-                        <p class="mt-2 text-sm text-gray-600">Status: <span class="bg-red-100 text-red-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">Gagal</span></p>
-
-                        <div class="flex justify-between mt-3 item-center">
-                            <h1 class="text-sm font-bold text-gray-700 md:text-xl">Rp. 999.000</h1>
-                            <!-- <button class="px-2 py-1 text-xs font-bold text-white uppercase transition-colors duration-200 transform bg-gray-800 rounded">Bayar sekarang</button> -->
-                        </div>
-                        </div>
-                    </div>
-                </div>
-
-
+                    <?php endfor ?>
+                <?php } ?>
             </div>
         </div>
     </div>
