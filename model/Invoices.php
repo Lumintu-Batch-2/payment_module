@@ -198,4 +198,38 @@ class Invoices {
             return $e->getMessage();
         }
     }
+
+    public function get_all_invoices() {
+        try {
+            $stmt = $this->db_conn->prepare(
+                'SELECT * FROM invoices'
+            );
+            if($stmt->execute()) {
+                $invoices = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                return $invoices;
+            } else {
+                return null;
+            }
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function get_invoices_user() {
+        try {
+            $stmt = $this->db_conn->prepare(
+                'SELECT * FROM invoices WHERE user_id = :user_id'
+            );
+            $stmt->bindParam(":user_id", $this->user_id);
+
+            if($stmt->execute()) {
+                $invoices = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                return $invoices;
+            } else {
+                return null;
+            }
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
 }
