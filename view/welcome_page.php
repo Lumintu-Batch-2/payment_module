@@ -34,7 +34,7 @@
 <!-- Navbar -->
 <nav class="sticky top-0  z-[50] bg-[#263238] px-5 py-3 md:flex md:items-center md:justify-between">
     <div class="flex justify-between items-center">
-        <a href="#" class="flex items-center">
+        <a href="welcome_page.php" class="flex items-center">
             <img src="../assets/logo/logo_lumintu.png" class="ml-4 h-6 sm:h-9" alt="Lumintu Logo" />
         </a>
         <span class="text-3xl text-white cursor-pointer mx-2 my-auto md:hidden block">
@@ -45,8 +45,8 @@
     <ul class="md:flex md:items-center z-[1] md:z-auto md:static absolute bg-[#263238] w-full 
         left-0 md:w-auto md:py-0 py-0 md:pl-0 py-4 pl-7 md:opacity-100 opacity-0 right-[-400px] transition-all 
         ease-out duration-500">
-        <button type="button" class="text-white bg-[#C27D2B] rounded-full 
-        text-sm px-5 py-1 text-center md:mr-3 sm:mr-0 mx-auto">Profile</button>
+        <a href="invoice.php" class="text-white text-md px-5 py-1 text-center md:mr-3 sm:mr-0 mx-auto hover:text-[#C27D2B] ">Invoice</a>
+        <a href="#" class="text-white bg-[#C27D2B] rounded-full text-sm px-5 py-1 text-center md:mr-3 sm:mr-0 mx-auto">Profile</a>
     </ul>
 </nav>
 <!-- end navbar -->

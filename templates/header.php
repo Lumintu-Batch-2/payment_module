@@ -18,4 +18,5 @@
     <meta property="og:url" content="https://lms.lumintulogic.com/" />
     <meta property="og:site_name" content="Lumintu Learning" />
     <meta property="og:image" content="https://account.lumintulogic.com/assets/img/logo.png" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.17.0/dist/full.css" rel="stylesheet" type="text/css" />
 </head>
