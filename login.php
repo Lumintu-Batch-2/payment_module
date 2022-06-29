@@ -1,31 +1,35 @@
 <?php
 
-require_once "./controllers/get_request.php";
-require_once "./controllers/post_request.php";
+    require_once "./controllers/get_request.php";
+    require_once "./controllers/post_request.php";
 
-session_start();
+    session_start();
 
-if (isset($_POST['login'])) {
-    $arr = array(
-        "email" => $_POST['email'],
-        "password" => $_POST['password']
-    );
-
-    $login = json_decode(post_request("https://account.lumintulogic.com/api/login.php", json_encode($arr)));
-    $access_token = $login->{'data'}->{'accessToken'};
-    $expiry = $login->{'data'}->{'expiry'};
-
-    if ($login->{'success'}) {
-        $userData = json_decode(http_request_with_auth("https://account.lumintulogic.com/api/user.php", $access_token));
-        $_SESSION['user_data'] = $userData;
-        var_dump($_SESSION['user_data']);
-        // die;
-        $_SESSION['expiry'] = $expiry;
-        setcookie('X-LUMINTU-REFRESHTOKEN', $access_token, strtotime($expiry));
-
-        header('location: ./view/welcome_page.php');
+    if(isset($_SESSION['user_data'])) {
+        header("location: view/welcome_page.php");
     }
-}
+
+    if (isset($_POST['login'])) {
+        $arr = array(
+            "email" => $_POST['email'],
+            "password" => $_POST['password']
+        );
+
+        $login = json_decode(post_request("https://account.lumintulogic.com/api/login.php", json_encode($arr)));
+        $access_token = $login->{'data'}->{'accessToken'};
+        $expiry = $login->{'data'}->{'expiry'};
+
+        if ($login->{'success'}) {
+            $userData = json_decode(http_request_with_auth("https://account.lumintulogic.com/api/user.php", $access_token));
+            $_SESSION['user_data'] = $userData;
+            var_dump($_SESSION['user_data']);
+            // die;
+            $_SESSION['expiry'] = $expiry;
+            setcookie('X-LUMINTU-REFRESHTOKEN', $access_token, strtotime($expiry));
+
+            header('location: ./view/welcome_page.php');
+        }
+    }
 
 ?>
 

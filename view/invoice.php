@@ -1,23 +1,26 @@
 <?php
-require_once "../templates/header.php";
-require_once "../controllers/format_price.php";
-require_once('../controllers/get_request.php');
+    // PHP Error Display
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
 
+    session_start();
 
-// PHP Error Display
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+    if(!isset($_SESSION['user_data'])) {
+        header("location: ../login.php");
+    }
 
-session_start();
+    require_once "../templates/header.php";
+    require_once "../controllers/format_price.php";
+    require_once('../controllers/get_request.php');
 
-$user_id = $_SESSION['user_data']->{'user'}->{'user_id'}; 
+    $user_id = $_SESSION['user_data']->{'user'}->{'user_id'}; 
 
-$url = "http://localhost/payment_module/api/invoices.php?id=" . $user_id;
-$datajs = http_request($url);
-$json = json_decode($datajs, TRUE);
-// var_dump($json);
-$indata = $json['data'];
+    $url = "http://localhost/payment_module/api/invoices.php?id=" . $user_id;
+    $datajs = http_request($url);
+    $json = json_decode($datajs, TRUE);
+    // var_dump($json);
+    $indata = $json['data'];
 
 
 ?>

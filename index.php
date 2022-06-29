@@ -1,9 +1,14 @@
 <?php
-// require_once "./templates/header.php";
-require_once "./model/Items.php";
 
-$objItem = new Items;
-$items = $objItem->get_all_items();
+    session_start();
+    require_once "./model/Items.php";
+
+    if(isset($_SESSION['user_data'])) {
+        header("location: view/welcome_page.php");
+    }
+
+    $objItem = new Items;
+    $items = $objItem->get_all_items();
 
 
 ?>

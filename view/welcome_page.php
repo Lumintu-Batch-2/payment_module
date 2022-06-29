@@ -2,6 +2,10 @@
 
     session_start();
 
+    if(!isset($_SESSION['user_data'])) {
+        header("location: ../login.php");
+    }
+
     require_once "../templates/header.php";
     require_once('../model/Items.php');
     require_once('../controllers/get_request.php');
