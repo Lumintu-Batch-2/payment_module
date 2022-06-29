@@ -258,9 +258,9 @@
 
         $('#itemTitle').html(itemName);
         $('#itemDesc').html(itemDesc);
-        $('#itemId').html(itemId);
+        $('#itemId').val(itemId);
         $('#priceValue').html('Rp ' + numberWithDot(itemPrice));
-        $('#itemPrice').html(itemPrice);
+        $('#itemPrice').val(itemPrice);
         $('#benefitClass').html('Akses kelas ' + itemName);
     }
 
@@ -269,9 +269,9 @@
         const URL_PAYMENT = "https://app.sandbox.midtrans.com/snap/v2/vtweb/";
 
         // Item Data
-        let itemId = $('#itemId').html();
+        let itemId = $('#itemId').val();
         let itemName = $('#itemTitle').html();
-        let itemPrice = $('#itemPrice').html();
+        let itemPrice = $('#itemPrice').val();
         let itemQty = 1;
 
 
