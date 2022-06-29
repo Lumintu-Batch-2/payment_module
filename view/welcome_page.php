@@ -320,7 +320,7 @@
             success: function(res) {
                 $('#loader').addClass('hidden');
                 alert('Pesanan behasil dibuat, silahkan cek halaman invoice untuk melakukan pembayaran');
-                // location.replace(URL_PAYMENT + res);
+                location.replace("./invoice.php");
             }
         })
     }
