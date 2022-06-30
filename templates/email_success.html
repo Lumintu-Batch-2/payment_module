@@ -1,100 +1,371 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="assets/logo/logo.ico" type="image/x-icon">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://unpkg.com/flowbite@1.4.3/dist/flowbite.min.css" />
-    <link href="assets/css/style.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital@0;1&display=swap" 
-    rel="stylesheet"/> <!-- Poppins Font -->
-    <title>Lumintu Learning</title>
-    <meta property="og:locale" content="id_ID" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Lumintu Logic" />
-    <meta property="og:description" content="We Are Lumintu’s Stack " />
-    <meta property="og:url" content="https://lms.lumintulogic.com/" />
-    <meta property="og:site_name" content="Lumintu Learning" />
-    <meta property="og:image" content="https://account.lumintulogic.com/assets/img/logo.png" />
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.17.0/dist/full.css" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.tailwindcss.com"></script>
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+
+<head>
+  <title>
+  </title>
+  <!--[if !mso]><!-- -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!--<![endif]-->
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style type="text/css">
+    #outlook a {
+      padding: 0;
+    }
+
+    .ReadMsgBody {
+      width: 100%;
+    }
+
+    .ExternalClass {
+      width: 100%;
+    }
+
+    .ExternalClass * {
+      line-height: 100%;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+    }
+
+    table,
+    td {
+      border-collapse: collapse;
+      mso-table-lspace: 0pt;
+      mso-table-rspace: 0pt;
+    }
+
+    img {
+      border: 0;
+      height: auto;
+      line-height: 100%;
+      outline: none;
+      text-decoration: none;
+      -ms-interpolation-mode: bicubic;
+    }
+
+    p {
+      display: block;
+      margin: 13px 0;
+    }
+  </style>
+  <!--[if !mso]><!-->
+  <style type="text/css">
+    @media only screen and (max-width:480px) {
+      @-ms-viewport {
+        width: 320px;
+      }
+
+      @viewport {
+        width: 320px;
+      }
+    }
+  </style>
+  <!--<![endif]-->
+  <!--[if mso]>
+        <xml>
+        <o:OfficeDocumentSettings>
+          <o:AllowPNG/>
+          <o:PixelsPerInch>96</o:PixelsPerInch>
+        </o:OfficeDocumentSettings>
+        </xml>
+        <![endif]-->
+  <!--[if lte mso 11]>
+        <style type="text/css">
+          .outlook-group-fix { width:100% !important; }
+        </style>
+        <![endif]-->
+  <!--[if !mso]><!-->
+  <link href="https://fonts.googleapis.com/css?family=Open Sans" rel="stylesheet" type="text/css">
+  <style type="text/css">
+    @import url(https://fonts.googleapis.com/css?family=Open-Sans);
+  </style>
+  <!--<![endif]-->
+  <style type="text/css">
+    @media only screen and (min-width:480px) {
+      .mj-column-per-100 {
+        width: 100% !important;
+        max-width: 100%;
+      }
+    }
+  </style>
+  <style type="text/css">
+    [owa] .mj-column-per-100 {
+      width: 100% !important;
+      max-width: 100%;
+    }
+  </style>
+  <style type="text/css">
+    @media only screen and (max-width:480px) {
+      table.full-width-mobile {
+        width: 100% !important;
+      }
+
+      td.full-width-mobile {
+        width: auto !important;
+      }
+    }
+  </style>
 </head>
 
-<body>
-<div class="bg-white max-w-screen-sm max-h-full my-auto mx-auto my-6 text-black pt-6">
-    <img class="mx-auto w-1/3 " src="assets/ilustrasi/logo_lumintu 3.png" alt="">
-    <div class=" box-border border-[#263238] w-9/12 p-4 border-2 mx-auto my-6 ">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto"  fill="none" viewBox="0 0 24 24" stroke="#1C9021" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-        </svg>
-        <p class="text-md lg:text-2xl font-bold text-center">Payment Success</p>
-        <p class="text-xs lg:text-md text-center my-2">Thankyou for your order, you can start your learning</p>
-
-        <div class=" mt-5 mb-6 lg:my-6 border-t-2 border-b-2 border-[#263238]">
-            <div class="mt-5 mb-5">
-                <p class="font-bold">Payment Details</p>
-            </div>
-            <div class="grid grid-cols-2 gap-4">
-                <div class="mt-3 sm:mt-4">
-                    <p class="text-xs sm:text-base align-top text-left">Payment Amount</p>
-                </div>
-                <div class="mt-3  sm:mt-5">
-                    <p class="text-xs sm:text-base align-top font-semibold text-right">Rp. 200.000</p>
-                </div>
-            </div>
-            <div class="grid grid-cols-2 gap-4">
-                <div class="mt-3 sm:mt-4">
-                    <p class="text-xs sm:text-base align-top text-left">Payment Date</p>
-                </div>
-                <div class="mt-3  sm:mt-4">
-                    <p class="text-xs sm:text-base align-top font-semibold text-right">09.00 July, 02 2022</p>
-                </div>
-            </div>
-            <div class="grid grid-cols-2 gap-4">
-                <div class="mt-3 sm:mt-4">
-                    <p class="text-xs sm:text-base align-top text-left">Payment Method</p>
-                </div>
-                <div class="mt-3  sm:mt-4">
-                    <p class="text-xs sm:text-base align-top font-bold text-right">Indomaret</p>
-                </div>
-            </div>
-            <div class="grid grid-cols-2 gap-4 text-[#1C9021]">
-                <div class="mt-3 mb-6 sm:mt-4">
-                    <p class="text-xs sm:text-base align-top text-left">Status</p>
-                </div>
-                <div class="mt-3 mb-6 sm:mt-4">
-                    <p class="text-xs sm:text-base align-top font-bold text-right">Paid</p>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 my-5 lg:my-3 ">
-            <div>
-                <p>Total Amount :</p>
-            </div>
-            <div>
-                <p class="text-xs sm:text-xl font-bold lg:text-right">Rp. 200.000</p>
-            </div>
-        </div>
-        <div class="flex space-x-1 p-4 border-t border-gray-200 rounded-b mx-auto ">
-            <button  type="button" class="text-white mx-auto bg-[#C27D2B] hover:bg-[#c27619] focus:ring-4 focus:ring-[#b06e1e] font-medium rounded-lg text-xs sm:text-sm px-4 py-2.5 text-center dark:bg-[#C27D2B] dark:hover:bg-[#c27619] dark:focus:ring-[#b06e1e]">Belajar Sekarang</button>
-        </div>
-        <div class="text-center border-t-2 border-[#263238] pt-3">
-            <p  class="text-center font-semibold">Our Contact</p>
-            <p class="text-xs lg:text-md text-center my-2">if you have any questions, concern or suggestion, please email us : <a href="#">lumintulogic@gmail.com</a> </p> 
-            <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
-            <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
-        </div>
+<body style="background-color:#f8f8f8;">
+  <div style="background-color:#f8f8f8;">
+    <!--[if mso | IE]>
+      <table
+         align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600"
+      >
+        <tr>
+          <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+      <![endif]-->
+    <div style="Margin:0px auto;max-width:600px;">
+      <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+        <tbody>
+          <tr>
+            <td style="direction:ltr;font-size:0px;padding:20px 0px 20px 0px;padding-bottom:0px;padding-top:0px;text-align:center;vertical-align:top;">
+              <!--[if mso | IE]>
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                
+        <tr>
+      
+            <td
+               class="" style="vertical-align:top;width:600px;"
+            >
+          <![endif]-->
+              <!--[if mso | IE]>
+            </td>
+          
+        </tr>
+      
+                  </table>
+                <![endif]-->
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <div class="text-white text-center mb-4">lumintu.logic</div>
-</div>
-
+    <!--[if mso | IE]>
+          </td>
+        </tr>
+      </table>
+      
+      <table
+         align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600"
+      >
+        <tr>
+          <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+      <![endif]-->
+    <div style="background:#ffffff;background-color:#ffffff;Margin:0px auto;max-width:600px;">
+      <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#ffffff;background-color:#ffffff;width:100%;">
+        <tbody>
+          <tr>
+            <td style="direction:ltr;font-size:0px;padding:20px 0;padding-bottom:0px;padding-left:0px;padding-right:0px;padding-top:0px;text-align:center;vertical-align:top;">
+              <!--[if mso | IE]>
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                
+        <tr>
+      
+            <td
+               class="" style="vertical-align:top;width:600px;"
+            >
+          <![endif]-->
+              <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+                  <tr>
+                    <td style="font-size:0px;padding:10px 25px;padding-top:0px;padding-right:0px;padding-bottom:40px;padding-left:0px;word-break:break-word;">
+                      <p style="border-top:solid 7px #DEDEDE;font-size:1;margin:0px auto;width:100%;">
+                      </p>
+                      <!--[if mso | IE]>
+        <table
+           align="center" border="0" cellpadding="0" cellspacing="0" style="border-top:solid 7px #DEDEDE;font-size:1;margin:0px auto;width:600px;" role="presentation" width="600px"
+        >
+          <tr>
+            <td style="height:0;line-height:0;">
+              &nbsp;
+            </td>
+          </tr>
+        </table>
+      <![endif]-->
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="center" style="font-size:0px;padding:10px 25px;padding-top:0px;padding-bottom:0px;word-break:break-word;">
+                      <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
+                        <tbody>
+                          <tr>
+                            <td style="width:110px;">
+                              <img alt="" height="auto" src="https://oembah.xyz/assets/logo/logo_lumintu.png" style="border:none;display:block;outline:none;text-decoration:none;height:auto;width:100%;" title="" width="110" />
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                    <tr>
+                        <td style="text-align:center; font-family:Open Sans, Helvetica, Arial, sans-serif">
+                            <h1>Pesanan Berhasil</h1>
+                        </td>
+                    </tr>
+                </table>
+              </div>
+              <!--[if mso | IE]>
+            </td>
+          
+        </tr>
+      
+                  </table>
+                <![endif]-->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!--[if mso | IE]>
+          </td>
+        </tr>
+      </table>
+      
+      <table
+         align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600"
+      >
+        <tr>
+          <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+      <![endif]-->
+    <div style="background:#ffffff;background-color:#ffffff;Margin:0px auto;max-width:600px;">
+      <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#ffffff;background-color:#ffffff;width:100%;">
+        <tbody>
+          <tr>
+            <td style="direction:ltr;font-size:0px;padding:20px 0;padding-bottom:0px;padding-top:0px;text-align:center;vertical-align:top;">
+              <!--[if mso | IE]>
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                
+        <tr>
+      
+            <td
+               class="" style="vertical-align:top;width:600px;"
+            >
+          <![endif]-->
+              <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+                  <tr>
+                    <td align="center" style="font-size:0px;padding:10px 25px;padding-top:40px;padding-right:50px;padding-bottom:0px;padding-left:50px;word-break:break-word;">
+                      <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
+                        <tbody>
+                          <tr>
+                            <td style="width:300px;">
+                              <img alt="" height="auto" src="http://9pl9.mjt.lu/tplimg/9pl9/b/yg0q/t65sy.png" style="border:none;display:block;outline:none;text-decoration:none;height:auto;width:100%;" title="" width="300" />
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <!--[if mso | IE]>
+            </td>
+          
+        </tr>
+      
+                  </table>
+                <![endif]-->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!--[if mso | IE]>
+          </td>
+        </tr>
+      </table>
+      
+      <table
+         align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600"
+      >
+        <tr>
+          <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+      <![endif]-->
+    <div style="background:#ffffff;background-color:#ffffff;Margin:0px auto;max-width:600px;">
+      <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#ffffff;background-color:#ffffff;width:100%;">
+        <tbody>
+          <tr>
+            <td style="direction:ltr;font-size:0px;padding:20px 0px 20px 0px;padding-bottom:70px;padding-top:30px;text-align:center;vertical-align:top;">
+              <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+                  <tr>
+                    <td align="left" style="font-size:0px;padding:0px 25px 0px 25px;padding-top:0px;padding-right:50px;padding-bottom:0px;padding-left:50px;word-break:break-word;">
+                      <div style="font-family:Open Sans, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;text-align:left;color:#797e82;">
+                        <h2 style="text-align:center; color: #000000; line-height:32px">Pesanan kamu dengan nomor invoice {order_id} berhasil terbayar, terima kasih!</h2>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr style="text-align: center;font-family:Open Sans, Helvetica, Arial, sans-serif; ">
+                    <td>
+                        <h4>Berikut adalah rincian pesanan anda</h4>
+                    </td>
+                  </tr>
+                  <tr style="">
+                    <td style="font-family:Open Sans, Helvetica, Arial, sans-serif; font-size: medium;">
+                        <table border="1" style="margin-left: auto; margin-right: auto; width: 90%; margin-top: 10px; margin-bottom: 10px; text-align: center;">
+                            <thead>
+                                <th>Product ID</th>
+                                <th>Metode Pembayaran</th>
+                                <th>Status</th>
+                                <th>Harga</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{product_id}</td>
+                                    <td>{payment_method}</td>
+                                    <td>{status}</td>
+                                    <td>{price}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="center" vertical-align="middle" style="font-size:0px;padding:10px 25px;padding-top:20px;padding-bottom:20px;word-break:break-word;">
+                      <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:separate;line-height:100%;">
+                        <tr>
+                          <td align="center" bgcolor="#DEDEDE" role="presentation" style="border:none;border-radius:100px;cursor:auto;padding:15px 25px 15px 25px;background:#DEDEDE;" valign="middle">
+                            <a href="https://oembah.xyz/view/welcome_page.php" style="background:#DEDEDE;color:#222222;font-family:Open Sans, Helvetica, Arial, sans-serif;font-size:13px;font-weight:normal;line-height:120%;Margin:0;text-decoration:none;text-transform:none;" target="_blank">
+                              <b style="font-weight:700"><b style="font-weight:700">Belajar Sekarang</b></b>
+                            </a>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="left" style="font-size:0px;padding:0px 25px 0px 25px;padding-top:0px;padding-right:50px;padding-bottom:0px;padding-left:50px;word-break:break-word;">
+                      <div style="font-family:Open Sans, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;text-align:left;color:#797e82;">
+                        <p style="margin: 10px 0; text-align: center;">Jika Anda memiliki pertanyaan, masalah, atau saran, silakan kirim email kepada kami : lumintulogic@gmail.com</p>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="Margin:0px auto;max-width:600px;">
+      <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+        <tbody>
+          <tr>
+            <td style="direction:ltr;font-size:0px;padding:20px 0px 20px 0px;padding-bottom:0px;padding-top:20px;text-align:center;vertical-align:top;">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </body>
-<script src="https://unpkg.com/flowbite@1.4.2/dist/flowbite.js"></script>
-    <script src="assets/js/script.js"></script>
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script> <!-- icons -->
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script> <!-- icons -->
-  </body>
+
 </html>

@@ -88,13 +88,13 @@ $mail->SMTPDebug = 0;                      //Enable verbose debug output
 $mail->isSMTP();                                            //Send using SMTP
 $mail->Host       = 'in-v3.mailjet.com';                     //Set the SMTP server to send through
 $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-$mail->Username   = 'f052c8ac3350d05e7fc2edacab7dd80b';                     //SMTP username
-$mail->Password   = '52ad616d3b5dced32f1e6909a82cf9f0';                               //SMTP password
+$mail->Username   = $_ENV['MAILTRAP_USERNAME'];                     //SMTP username
+$mail->Password   = $_ENV['MAILTRAP_PASSWORD'];                               //SMTP password
 $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
 $mail->Port       = 587;  
 
-$mail->setFrom('admin@oembah.xyz', 'Lumintu Logic');
-$mail->addReplyTo('admin@oembah.xyz', 'Information');
+$mail->setFrom($_ENV['MAILTRAP_EMAIL'], 'Lumintu Logic');
+$mail->addReplyTo($_ENV['MAILTRAP_EMAIL'], '<no-reply>');
 $mail->addAddress($customer_data['email'], $customer_data['first_name'] . " " . $customer_data['last_name']);
 
 $mail->isHTML(true);                                  //Set email format to HTML
@@ -102,8 +102,8 @@ $mail->Subject = 'Menunggu Pembayaran untuk order_id = ' . $order_id;
 $mail->Body    = file_get_contents('templates/email_confirm.html');
 // $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
-$key = array('{price}', '{url_bayar}');
-$val = array($params['transaction_details']['gross_amount'], "https://app.midtrans.com/snap/v2/vtweb/" . $token);
+$key = array('{order_id}', '{product_id}', '{name}', '{price}', '{url_bayar}');
+$val = array($oid, $item_data['id'], $item_data['name'], $params['transaction_details']['gross_amount'], "https://app.midtrans.com/snap/v2/vtweb/" . $token);
 
 $mail->Body = str_replace($key, $val, $mail->Body);
 
