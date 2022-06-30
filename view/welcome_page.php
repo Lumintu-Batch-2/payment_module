@@ -41,7 +41,7 @@
 ?>
 <body>
 <!-- Navbar -->
-<nav class="sticky top-0  z-[50] bg-[#263238] px-5 py-3 md:flex md:items-center md:justify-between">
+<nav class="sticky top-0 z-30 bg-[#263238] px-5 py-3 md:flex md:items-center md:justify-between">
     <div class="flex justify-between items-center">
         <a href="welcome_page.php" class="flex items-center">
             <img src="../assets/logo/logo_lumintu.png" class="ml-4 h-6 sm:h-9" alt="Lumintu Logo" />
@@ -51,11 +51,29 @@
         </span>
     </div>
 
-    <ul class="md:flex md:items-center z-[1] md:z-auto md:static absolute bg-[#263238] w-full 
+    <ul class="md:flex md:items-center z-[0] md:z-auto md:static absolute bg-[#263238] w-full 
         left-0 md:w-auto md:py-0 py-0 md:pl-0 py-4 pl-7 md:opacity-100 opacity-0 right-[-400px] transition-all 
         ease-out duration-500">
-        <a href="invoice.php" class="text-white text-md px-5 py-1 text-center md:mr-3 sm:mr-0 mx-auto hover:text-[#C27D2B] ">Invoice</a>
-        <a href="#" class="text-white bg-[#C27D2B] rounded-full text-sm px-5 py-1 text-center md:mr-3 sm:mr-0 mx-auto">Profile</a>
+
+        <li class="mx-2 my-4 md:my-0">
+            <a href="welcome_page.php" class="text-white text-sm px-2 py-1 text-center hover:text-[#C27D2B] duration-500">Home</a>
+        </li>
+
+        <li class="mx-2 my-4 md:my-0">
+            <a href="invoice.php" class="text-white text-sm px-2 py-1 text-center hover:text-[#C27D2B] duration-500">Invoice</a>
+        </li>
+
+        <button  id="dropdownDefault" data-dropdown-toggle="dropdown" type="button" class="text-white bg-[#C27D2B] rounded-full 
+        text-sm px-5 py-1 text-center md:mr-3 sm:mr-0 mx-auto">Profile</button>
+
+        <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-24">
+            <ul class="py-1 text-sm text-gray-700" aria-labelledby="dropdownDefault">
+                <li>
+                    <a href="./logout.php" class="block px-4 py-2 hover:bg-gray-100 dark:hover:text-gray-700">Keluar</a>
+                </li>
+            </ul>
+        </div>
+        
     </ul>
 </nav>
 <!-- end navbar -->

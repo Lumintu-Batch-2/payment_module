@@ -1,27 +1,6 @@
 <?php
-    // PHP Error Display
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
-
-    session_start();
-
-    if(!isset($_SESSION['user_data'])) {
-        header("location: ../login.php");
-    }
-
-    require_once "../templates/header.php";
-    require_once "../controllers/format_price.php";
-    require_once('../controllers/get_request.php');
-
-    $user_id = $_SESSION['user_data']->{'user'}->{'user_id'}; 
-
-    $url = "http://localhost/payment_module/api/invoices.php?id=" . $user_id;
-    $datajs = http_request($url);
-    $json = json_decode($datajs, TRUE);
-    // var_dump($json);
-    $indata = $json['data'];
-
+require_once "../templates/header.php";
+session_start();
 
 ?>
 
@@ -66,74 +45,16 @@
 
 <!-- konten -->
 <div class="bg-white p-2">
-    <div class="text-center w-full p-4 ">
+    <div class="text-center w-full p-4 flex flex-col gap-y-8">
         <h3 class="font-semibold text-[#263238] md:text-3xl">
-            Daftar Transaksi
+            Pembayaran Berhasil
         </h3>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-36 w-36 mx-auto"  fill="none" viewBox="0 0 24 24" stroke="#1C9021" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+        </svg>
+        <a href="https://oembah.xyz/view/welcome_page.php" type="button" class="text-white mx-auto bg-[#C27D2B] hover:bg-[#c27619] focus:ring-4 focus:ring-[#b06e1e] font-medium rounded-full text-xs sm:text-sm px-4 py-2.5 text-center">Belajar Sekarang</a>
+
     </div>
-
-    <div class=" mx-auto lg:max-w-7xl mt-3">
-        <div class="max-w-7xl mx-auto px-5 mb-3">
-            <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-2 xl:gap-x-8">
-                <?php if(empty($indata)) { ?>
-                    <div class="flex flex-col mx-auto w-full col-span-2">
-                        <div class="text-center">
-                            <img 
-                            class="h-60 w-full object-center p-4"
-                            src="../assets/ilustrasi/gambar5.svg"
-                            alt="error">
-                        </div>
-                        <div class="text-center w-full px-4 mb-8 p-4">
-                            <h3 class="font-medium text-[#263238] sm:text-xl">
-                                Anda tidak memiliki invoice
-                            </h3>
-                        </div>
-                    </div>
-                <?php } else  {?>
-                    <?php for($i = 0; $i < count($indata); $i++) : ?>
-                        <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl border border-md">
-                            <div class="md:flex">
-                                <div class="md:shrink-0">
-                                <img class="h-48 w-full object-cover md:h-full md:w-48" src="../assets/ilustrasi/course<?=$indata[$i]['item_id']?>.png" alt="GradIT logo">
-                                </div>
-                                <div class="p-8">
-                                <h1 class="text-2xl font-bold text-gray-800"><?=$indata[$i]['name']?></h1>
-                                <p class="mt-2 text-slate-500"><?=$indata[$i]['description']?></p>
-                                <p class="mt-2 text-slate-600">Tanggal: <span><?=$indata[$i]['date_created']?></span></p>
-                                <p class="mt-2 text-slate-600">Invoice: <span><?=$indata[$i]['order_id']?></span></p>
-                                <p class="mt-2 text-sm text-gray-600">
-                                    Status: 
-                                    <?php switch($indata[$i]['status']) { 
-                                        case 'pending': 
-                                            echo '<span class="bg-indigo-100 text-indigo-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">Tertunda</span>';
-                                            break;
-                                        case 'paid':
-                                            echo '<span class="bg-green-100 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">Berhasil</span>';
-                                            break;
-                                        case 'unpaid':
-                                            echo '<span class="bg-red-100 text-red-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">Gagal</span>';
-                                            break;
-                                        default:
-                                            break;
-                                     } ?>
-                                </p>
-    
-                                <div class="flex justify-between mt-3 item-center">
-                                    <h1 class="text-sm font-bold text-gray-700 md:text-xl"><?= 'Rp ' . format_price($indata[$i]['amount'])?></h1>
-                                    <?php if($indata[$i]['status'] == 'pending') : ?>
-                                        <a href="https://app.midtrans.com/snap/v2/vtweb/<?=$indata[$i]['transaction_id']?>" target="_blank" class="px-5 py-2 text-xs font-bold text-white uppercase transition-colors duration-200 transform bg-gray-800 rounded-full">Bayar sekarang</a>
-                                    <?php endif ?>
-                                </div>
-                                </div>
-                            </div>
-                        </div>
-                    <?php endfor ?>
-                <?php } ?>
-            </div>
-        </div>
-    </div>
-
-
 </div>
 <!-- end konten -->
 
