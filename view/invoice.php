@@ -103,7 +103,7 @@
                                 <div class="flex justify-between mt-3 item-center">
                                     <h1 class="text-sm font-bold text-gray-700 md:text-xl"><?= 'Rp ' . format_price($indata[$i]['amount'])?></h1>
                                     <?php if($indata[$i]['status'] == 'pending') : ?>
-                                        <a href="https://app.midtrans.com/snap/v2/vtweb/<?=$indata[$i]['transaction_id']?>" target="_blank" class="px-2 py-1 text-xs font-bold text-white uppercase transition-colors duration-200 transform bg-gray-800 rounded">Bayar sekarang</a>
+                                        <a href="https://app.midtrans.com/snap/v2/vtweb/<?=$indata[$i]['transaction_id']?>" target="_blank" class="px-5 py-2 text-xs font-bold text-white uppercase transition-colors duration-200 transform bg-gray-800 rounded-full">Bayar sekarang</a>
                                     <?php endif ?>
                                 </div>
                                 </div>

@@ -112,7 +112,7 @@
                                     <p class="mb-3 font-normal text-gray-700 mb-14"><?= $pack["description"]; ?></p>
                                     <div class="p-6 text-center">
                                         <?php if($pack["status"] == 'pending') { ?>
-                                            <a href="https://app.midtrans.com/snap/v2/vtweb/<?=$pack['transaction_id']; ?>" class="text-white bg-[#C27D2B] rounded-full 
+                                            <a href="https://app.midtrans.com/snap/v2/vtweb/<?=$pack['transaction_id']; ?>" class="text-white bg-gray-800 uppercase rounded-full 
                                             text-sm px-5 py-2 text-center md:mr-3 sm:mr-0 mx-auto" target="_blank">Bayar Sekarang</a>
                                         <?php } else { ?>
                                             <a href="#" class="text-white bg-[#C27D2B] rounded-full 
