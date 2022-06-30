@@ -82,7 +82,7 @@
         </h3>
     </div>
     <div>
-    <?php if(empty($data_item['items_user'])) { ?>
+        <?php if(empty($data_item['items_user'])) { ?>
             <div class="flex flex-col mx-auto w-full">
                 <div class="text-center">
                     <a href="#">
@@ -142,28 +142,46 @@
     </div>
     <!-- component card -->
     
-    <div class=" mx-auto lg:max-w-7xl mt-3 ">
-        <div class="max-w-7xl mx-auto px-5 mb-3">
-            <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
-                <?php foreach ($data_item['not_taken'] as $pack) : ?>
-                    <div class="max-w-xl p-4 bg-white rounded-lg border border-gray-200 shadow-xl">
-                        <img class="lg:h-48 md:h-36 w-full object-center scale-100 transition-all duration-400 hover:scale-90" src="../assets/ilustrasi/gambar<?=$pack['item_id'];?>.svg" alt="">
-                        <div class="p-5" >
-                            
-                            <a href="#">
-                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 text-center"><?= $pack["name"]; ?></h5>
-                            </a>
-                            <p class="mb-3 font-normal text-gray-700 mb-14"><?= $pack["description"]; ?></p>
-                            <div class="p-6 text-center">
-                                <button type="button" data-modal-toggle="default-modal" class="text-white bg-[#C27D2B] rounded-full 
-                                text-sm px-5 py-2 text-center md:mr-3 sm:mr-0 mx-auto" data-name="<?= $pack["name"]; ?>" data-price="<?= $pack["price"]; ?>" data-desc="<?= $pack["description"]; ?>" id="modal<?= $pack["item_id"]; ?>" onclick="openModal(<?= $pack['item_id']; ?>)">Ayo gabung sekarang</button>
-                            </div>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
+    <?php if(empty($data_item['not_taken'])) { ?>
+        <div class="flex flex-col mx-auto w-full">
+            <div class="text-center">
+                <a href="#">
+                    <img 
+                    class="h-60 w-full object-center p-4"
+                    src="../assets/ilustrasi/gambar5.svg"
+                    alt="error">
+                </a>
+            </div>
+            <div class="text-center w-full px-4 mb-8 p-4">
+                <h3 class="font-medium text-[#263238] sm:text-xl">
+                    Tidak ada course yang bisa diambil
+                </h3>
             </div>
         </div>
-    </div>
+    <?php } else { ?>
+        <div class=" mx-auto lg:max-w-7xl mt-3 ">
+            <div class="max-w-7xl mx-auto px-5 mb-3">
+                <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
+                    <?php foreach ($data_item['not_taken'] as $pack) : ?>
+                        <div class="max-w-xl p-4 bg-white rounded-lg border border-gray-200 shadow-xl">
+                            <img class="lg:h-48 md:h-36 w-full object-center scale-100 transition-all duration-400 hover:scale-90" src="../assets/ilustrasi/gambar<?=$pack['item_id'];?>.svg" alt="">
+                            <div class="p-5" >
+                                
+                                <a href="#">
+                                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 text-center"><?= $pack["name"]; ?></h5>
+                                </a>
+                                <p class="mb-3 font-normal text-gray-700 mb-14"><?= $pack["description"]; ?></p>
+                                <div class="p-6 text-center">
+                                    <button type="button" data-modal-toggle="default-modal" class="text-white bg-[#C27D2B] rounded-full 
+                                    text-sm px-5 py-2 text-center md:mr-3 sm:mr-0 mx-auto" data-name="<?= $pack["name"]; ?>" data-price="<?= $pack["price"]; ?>" data-desc="<?= $pack["description"]; ?>" id="modal<?= $pack["item_id"]; ?>" onclick="openModal(<?= $pack['item_id']; ?>)">Ayo gabung sekarang</button>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
+    <?php } ?>
 
     <?php include "../templates/modal.php"; ?>
 </div>
