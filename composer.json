@@ -1,6 +1,7 @@
 {
     "require": {
         "midtrans/midtrans-php": "^2.5",
-        "vlucas/phpdotenv": "^5.4"
+        "vlucas/phpdotenv": "^5.4",
+        "phpmailer/phpmailer": "^6.6"
     }
 }
