@@ -15,7 +15,7 @@
             <div class="bg-white rounded-lg shadow relative">
                 <!-- Modal header -->
                 <div class="flex items-start justify-between p-5 border-b rounded-t ">
-                    <h3 class="text-gray-900 text-3xl lg:text-2xl font-bold">
+                    <h3 id="itemTitle" class="text-gray-900 text-3xl lg:text-2xl font-bold">
                         GradIT
                     </h3>
                     <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="default-modal">
@@ -24,13 +24,13 @@
                 </div>
                 <!-- Modal body -->
                 <div class="p-6 space-y-6">
-                    <p class="text-base leading-relaxed ">
+                    <p id="itemDesc" class="text-base leading-relaxed ">
                         Raih impian menjadi web developer profesional
                     </p>
                     <p class=" leading-relaxed text-xl">
                         Benefit Langganan :
                         <ul class="list-disc ml-6">
-                            <li>Akses kelas GradIT</li>
+                            <li id="benefitClass">Akses kelas GradIT</li>
                             <li>Diskusi bersama mentor</li>
                             <li>Ujian</li>
                             <li>Tugas</li>
@@ -43,13 +43,15 @@
                         <p class="text-xl font-semibold ">
                             Harga langganan
                         </p>
-                        <p class="text-xl font-bold">
+                        <p id="priceValue" class="text-xl font-bold">
                             Rp. 999.999
                         </p>
                         
                     </div>
                     <div class="flex space-x-2 items-center p-6 rounded-b mx-auto mr-0">
-                        <button data-modal-toggle="default-modal" type="button" class="text-white bg-[#C27D2B] hover:bg-[#c27619] focus:ring-4 focus:ring-[#b06e1e] font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Bayar sekarang</button>
+                        <input type="hidden" name="" id="itemId">
+                        <input type="hidden" name="" id="itemPrice">
+                        <button type="button" class="text-white bg-[#C27D2B] hover:bg-[#c27619] focus:ring-4 focus:ring-[#b06e1e] font-medium rounded-lg text-sm px-5 py-2.5 text-center " onclick="createOrder()">Buat pesanan</button>
                     </div>
                 </div>
                 

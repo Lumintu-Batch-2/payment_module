@@ -19,7 +19,6 @@
     switch($_SERVER['REQUEST_METHOD']) {
         case 'GET':
             try {
-
                 if(isset($_GET['id'])) {
                     $uid = $_GET['id'];
                     $user_items = $item->get_items_user($uid);
@@ -44,17 +43,23 @@
 
                 $items = $item->get_all_items();
                 $arr['error'] = false;
-                $arr['data'] = $items;
+                if(!empty($items)) {
+                    $arr['data'] = $items;
+                } else {
+                    $arr['msg'] = 'Item not found!';
+                    $arr['data'] = null;
+                }
+
+                print_r(json_encode($arr));
+                break;
                 
             } catch (Exception $e) {
                 $arr['error'] = true;
                 $arr['msg'] = "Can't get items";
                 $arr['data'] = null;
-            }
-            
-            print_r(json_encode($arr));
-
-            break;
+                print_r(json_encode($arr));
+                break;
+            }    
 
         default:
             http_response_code(405);

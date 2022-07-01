@@ -74,7 +74,7 @@ class Items {
         try {
 
             $stmt = $this->db_conn->prepare(
-                "SELECT * FROM items WHERE items.item_id IN (SELECT invoices.item_id FROM invoices WHERE invoices.user_id = :uid AND (invoices.status = 'paid' OR invoices.status = 'pending') )"
+                "SELECT items.item_id, items.name, items.description, invoices.status, invoices.transaction_id FROM items LEFT JOIN invoices ON invoices.item_id = items.item_id WHERE invoices.user_id = :uid AND (invoices.status = 'paid' OR invoices.status = 'pending')"
             );
             
             $stmt->bindParam(":uid", $user_id);
